@@ -6,12 +6,20 @@ import { registerSchema } from "../schemas";
 
 function RegisterForm(){
 
-    const { handleSubmit, register } = useForm<RegisterUser>({
+    const { handleSubmit, register, formState: { errors, isSubmitting }, reset } = useForm<RegisterUser>({
         resolver: zodResolver(registerSchema),
     });
 
-    const onSubmit: SubmitHandler<RegisterUser> = (data) => {
+    const onSubmit: SubmitHandler<RegisterUser> = async (data) => {
+        await new Promise((resolve) => {
+            setTimeout(()=>{
+                resolve("...Loading")
+            }, 2000)
+        })
+
         console.log(data);
+
+        reset();
     }
 
     return (
@@ -32,43 +40,50 @@ function RegisterForm(){
                                 <div>
                                     <label htmlFor="lastname">Nom</label>
                                     <div>
-                                        <input type="text" {...register("lastname")}/>
+                                        <input type="text" {...register("lastname")} id="lastname"/>
                                         {/* L'icon */}
                                     </div>
+                                    { errors.lastname?.message ?? (<span>{errors.lastname?.message}</span>)}
                                 </div>
                                 <div>
                                     <label htmlFor="firstname">Prénom</label>
                                     <div>
-                                        <input type="text" {...register("firstname")}/>
+                                        <input type="text" {...register("firstname")} id="firstname"/>
                                         {/* L'icon */}
                                     </div>
+                                    { errors.firstname?.message ?? (<span>{errors.firstname?.message}</span>)}
                                 </div>
                             </div>
                             <div>
                                 <label htmlFor="email">Adresse mail</label>
                                 <div>
-                                    <input type="email" {...register("email")}/>
+                                    <input type="email" {...register("email")} id="email"/>
                                     {/* L'icon */}
+                                    { errors.email?.message ?? (<span>{errors.email?.message}</span>)}
                                 </div>
                             </div>
                             
                             <div>
                                 <label htmlFor="password">Mot de passe</label>
                                 <div>
-                                    <input type="password" {...register("password")}/>
+                                    <input type="password" {...register("password")} id="password"/>
                                     {/* L'icon */}
                                 </div>
+                                { errors.password?.message ?? (<span>{errors.password?.message}</span>)}
                             </div>
                             <div>
                                 <label htmlFor="password_confirmation">Confirmer le mot de passe</label>
                                 <div>
-                                    <input type="password" {...register("password_confirmation")}/>
+                                    <input type="password" {...register("password_confirmation")} id="password_confirmation"/>
                                     {/* L'icon */}
+                                    { errors.password_confirmation?.message ?? (<span>{errors.password_confirmation?.message}</span>)}
                                 </div>
                             </div>
 
 
-                            <button type="submit">S'inscrire</button>
+                            <button type="submit" disabled={isSubmitting}>
+                                { isSubmitting ? "Loading..." : "S'inscrire" }
+                            </button>
                         </form>
                     </div>
                 </div>
