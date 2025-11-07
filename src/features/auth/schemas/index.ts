@@ -25,6 +25,22 @@ export const loginSchema = z.object({
     password: passwordRules
 });
 
-type registerUser = z.infer<typeof registerSchema>
+export const authStoreSchema = z.object({
+    user: registerSchema.nullable(),
+    token: z.string().nullable(),
+    login: z.function({
+        input: [],
+        output: z.void()
+    }),
 
-type loginUser = z.infer<typeof loginSchema>
+    logout: z.function({
+        input: [],
+        output: z.void()
+    })
+})
+
+export type registerUser = z.infer<typeof registerSchema>
+
+export type loginUser = z.infer<typeof loginSchema>
+
+export type AuthStore = z.infer<typeof authStoreSchema>
