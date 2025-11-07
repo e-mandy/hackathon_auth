@@ -39,7 +39,7 @@ export const authStoreSchema = z.object({
     })
 })
 
-export type registerUser = z.infer<typeof registerSchema>
+export type RegisterUser = z.infer<typeof registerSchema>
 
 export type loginUser = z.infer<typeof loginSchema>
 
