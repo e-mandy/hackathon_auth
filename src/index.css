@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+body{
+    background: white;
+}
+
+@layer components {
+    .bg-auth{
+        background-image: url("assets/auth/bg_auth.png");
+        background-position: bottom;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .button{
+        padding: 12px 17px;
+        border-radius: 12px;
+        box-shadow: -2px 2px 10px rgb(45, 45, 45);
+    }
+}
