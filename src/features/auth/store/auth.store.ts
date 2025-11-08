@@ -1,16 +1,13 @@
 import { create } from "zustand";
-import type { AuthStore } from "../schemas";
+import type { RegisterUser, AuthStore } from '../schemas/index'
 
 
-export const useAuthStore = create<AuthStore>(() => ({
+export const useAuthStore = create<AuthStore>((set) => ({
     user: null,
 
     token: null,
 
-    login: () => {
-        //
-    },
-
+    login: (userLogin: RegisterUser) => set({ user: userLogin }),
     logout: () => {
         //
     }

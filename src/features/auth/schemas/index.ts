@@ -27,9 +27,9 @@ export const loginSchema = z.object({
 
 export const authStoreSchema = z.object({
     user: registerSchema.nullable(),
-    token: z.string().nullable(),
+    token: z.string().nullable(), 
     login: z.function({
-        input: [],
+        input: [registerSchema],
         output: z.void()
     }),
 
