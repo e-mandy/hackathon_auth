@@ -5,12 +5,14 @@ import type { RegisterUser } from "../schemas";
 import { registerSchema } from "../schemas";
 import { Eye, Mail } from 'lucide-react';
 import { useRegister } from '../api/useRegister'
+import { useAuthStore } from "../store/auth.store";
 
 function RegisterForm(){
 
     const { mutate } = useRegister();
 
-    
+    const { login } = useAuthStore();
+
     const { handleSubmit, register, formState: { errors, isSubmitting }, reset } = useForm<RegisterUser>({
         resolver: zodResolver(registerSchema),
     });
@@ -19,8 +21,8 @@ function RegisterForm(){
     const onSubmit: SubmitHandler<RegisterUser> = async (formData) => {
         
         mutate(formData, {
-            onSuccess: (data) => {
-                console.log(data)
+            onSuccess: () => {
+                //
             }
         })
         reset();

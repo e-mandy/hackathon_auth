@@ -3,10 +3,10 @@ import type { RegisterUser } from '../schemas'
 
 
 const sendUser = async (user: RegisterUser) => {
-    new Promise((resolve) => {
+    return await new Promise((resolve) => {
         setTimeout(() => {
             const result = { token: "Résultat", user: user }
-            resolve(result)
+            resolve(result.user)
         }, 2000)
     })
 }
