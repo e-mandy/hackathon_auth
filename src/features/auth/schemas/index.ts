@@ -27,20 +27,14 @@ export const loginSchema = z.object({
 
 export const authStoreSchema = z.object({
     user: registerSchema.nullable(),
-    token: z.string().nullable(), 
-    login: z.function({
-        input: [registerSchema],
-        output: z.void()
-    }),
-
-    logout: z.function({
-        input: [],
-        output: z.void()
-    })
+    token: z.string().nullable(),
 })
 
 export type RegisterUser = z.infer<typeof registerSchema>
 
 export type loginUser = z.infer<typeof loginSchema>
 
-export type AuthStore = z.infer<typeof authStoreSchema>
+export type AuthStore = z.infer<typeof authStoreSchema> & {
+    login: (data: RegisterUser) => void,
+    logout: () => void
+}

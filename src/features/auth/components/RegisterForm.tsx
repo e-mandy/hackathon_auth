@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import type { RegisterUser } from "../schemas";
 import { registerSchema } from "../schemas";
 import { Eye, Mail } from 'lucide-react';
-import { sendUser } from '../api/useLogin'
 
 function RegisterForm(){
 
@@ -13,13 +12,8 @@ function RegisterForm(){
     });
 
     const onSubmit: SubmitHandler<RegisterUser> = async (data) => {
-        await new Promise((resolve) => {
-            setTimeout(()=>{
-                resolve("...Loading")
-            }, 2000)
-        })
-        const essais = sendUser(data)
-        console.log(essais);
+        
+        console.log(data)
 
         reset();
     }
