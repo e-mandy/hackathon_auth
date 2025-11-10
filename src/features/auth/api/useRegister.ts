@@ -11,6 +11,10 @@ const sendUser = async (user: RegisterUser) => {
     })
 }
 
-export const useRegister = useMutation({
-    mutationFn: sendUser
-})
+
+export const useRegister = () => {
+
+    return useMutation({
+        mutationFn: sendUser
+    })
+}
