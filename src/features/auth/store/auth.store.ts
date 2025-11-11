@@ -9,7 +9,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
     token: null,
 
     login: (userLogin: ApiResponse) => set({ user: userLogin.user, token: userLogin.token }),
-    logout: () => set({ user: null })
+    logout: () => set({ user: null, token: null })
 }));
 
 export const useIsAuthenticated = create(() => ({

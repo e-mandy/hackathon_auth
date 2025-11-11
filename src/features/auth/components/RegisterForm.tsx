@@ -91,9 +91,9 @@ function RegisterForm(){
                             </div>
 
 
-                            <button className="global-button w-full mt-10 bg-[#4399CB] text-white font-bold text-xl cursor-pointer flex items-center justify-center" type="submit" disabled={isPending}>
+                            <button className="global-button w-full mt-10 bg-[#4399CB] text-white font-bold text-xl cursor-pointer flex items-center justify-center gap-2" type="submit" disabled={isPending}>
                                 <span>{ !isPending ? "S'inscrire" : "En cours..." }</span>
-                                { isPending &&  <Spinner height="30" width="40" visible={true} color="white" />}
+                                { isPending &&  <Spinner height="20" width="20" visible={true} color="white" />}
                             </button>
                         </form>
                     </div>
