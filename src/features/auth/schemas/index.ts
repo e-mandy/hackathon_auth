@@ -1,7 +1,8 @@
 import { z } from 'zod';
+import type { ApiResponse } from '../api/useRegister';
 
 // Une façon plus générique de définir les règles de validation d'un password.
-const passwordRules = z.string().min(8).regex(/[A-Z]/).regex(/[0-9]/);
+const passwordRules = z.string().min(8, "Le mot de passe doit avoir un minimum de 8 caractères avec une majuscule et un chiffre").regex(/[A-Z]/).regex(/[0-9]/);
 
 // The register validation schema.
 export const registerSchema = z.object({
@@ -35,6 +36,6 @@ export type RegisterUser = z.infer<typeof registerSchema>
 export type loginUser = z.infer<typeof loginSchema>
 
 export type AuthStore = z.infer<typeof authStoreSchema> & {
-    login: (data: RegisterUser) => void,
+    login: (data: ApiResponse) => void,
     logout: () => void
 }

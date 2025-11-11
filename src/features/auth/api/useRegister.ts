@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import type { RegisterUser } from '../schemas'
 
-type ApiResponse = {
+export type ApiResponse = {
     user: RegisterUser,
     token: string
 }
@@ -20,6 +20,6 @@ const sendUser = async (user: RegisterUser): Promise<ApiResponse> => {
 export const useRegister = () => {
 
     return useMutation({
-        mutationFn: sendUser
+        mutationFn: sendUser,
     })
 }

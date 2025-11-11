@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import type { RegisterUser, AuthStore } from '../schemas/index'
+import type { AuthStore, RegisterUser } from '../schemas/index';
+import type { ApiResponse } from "../api/useRegister";
 
 
 export const useAuthStore = create<AuthStore>((set) => ({
@@ -7,6 +8,12 @@ export const useAuthStore = create<AuthStore>((set) => ({
 
     token: null,
 
-    login: (userLogin: RegisterUser) => set({ user: userLogin }),
+    login: (userLogin: ApiResponse) => set({ user: userLogin.user, token: userLogin.token }),
     logout: () => set({ user: null })
 }));
+
+export const useIsAuthenticated = create(() => ({
+    isRegister: (userStore: RegisterUser) => {
+        return (userStore === null) ? false : true;
+    }
+}))

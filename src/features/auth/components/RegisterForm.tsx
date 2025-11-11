@@ -1,19 +1,20 @@
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod"
+import { zodResolver } from "@hookform/resolvers/zod";
 import type { RegisterUser } from "../schemas";
 import { registerSchema } from "../schemas";
 import { Eye, Mail } from 'lucide-react';
-import { useRegister } from '../api/useRegister'
+import { useRegister } from '../api/useRegister';
 import { useAuthStore } from "../store/auth.store";
+import Spinner from "../../../utils/components/Spinner";
 
 function RegisterForm(){
 
-    const { mutate } = useRegister();
+    const { mutate, isPending } = useRegister();
 
     const { login } = useAuthStore();
 
-    const { handleSubmit, register, formState: { errors, isSubmitting }, reset } = useForm<RegisterUser>({
+    const { handleSubmit, register, formState: { errors }, reset } = useForm<RegisterUser>({
         resolver: zodResolver(registerSchema),
     });
 
@@ -21,8 +22,8 @@ function RegisterForm(){
     const onSubmit: SubmitHandler<RegisterUser> = async (formData) => {
         
         mutate(formData, {
-            onSuccess: () => {
-                //
+            onSuccess: (result) => {
+                login(result)
             }
         })
         reset();
@@ -47,7 +48,7 @@ function RegisterForm(){
                                         <input type="text" className="input-disabled" {...register("lastname")} id="lastname"/>
                                         {/* L'icon */}
                                     </div>
-                                    { errors.lastname?.message ?? (<span className="error-message">{errors.lastname?.message}</span>)}
+                                    { errors.lastname?.message && (<span className="error-message">{errors.lastname?.message}</span>)}
                                 </div>
                                 <div>
                                     <label htmlFor="firstname">Prénom</label>
@@ -55,7 +56,7 @@ function RegisterForm(){
                                         <input type="text" className="input-disabled" {...register("firstname")} id="firstname"/>
                                         {/* L'icon */}
                                     </div>
-                                    { errors.firstname?.message ?? (<span className="error-message">{errors.firstname?.message}</span>)}
+                                    { errors.firstname?.message && (<span className="error-message">{errors.firstname?.message}</span>)}
                                 </div>
                             </div>
                             <div className="mb-6">
@@ -64,7 +65,7 @@ function RegisterForm(){
                                     <input type="email" className="input-disabled" {...register("email")} id="email"/>
                                     <Mail />
                                 </div>
-                                { errors.email?.message ?? (<span className="error-message">{errors.email?.message}</span>)}
+                                { errors.email?.message && (<span className="error-message">{errors.email?.message}</span>)}
                             </div>
                             
                             <div className="mb-6">
@@ -73,7 +74,7 @@ function RegisterForm(){
                                     <input type="password" className="input-disabled" {...register("password")} id="password"/>
                                     <Eye />
                                 </div>
-                                { errors.password?.message ?? (<span className="error-message">{errors.password?.message}</span>)}
+                                { errors.password?.message && (<span className="error-message">{errors.password?.message}</span>)}
                             </div>
                             <div className="">
                                 <label htmlFor="password_confirmation">Confirmer le mot de passe</label>
@@ -81,12 +82,13 @@ function RegisterForm(){
                                     <input type="password" className="input-disabled" {...register("password_confirmation")} id="password_confirmation"/>
                                     <Eye />
                                 </div>
-                                    { errors.password_confirmation?.message ?? (<span className="error-message">{errors.password_confirmation?.message}</span>)}
+                                    { errors.password_confirmation?.message && (<span className="error-message">{errors.password_confirmation?.message}</span>)}
                             </div>
 
 
-                            <button className="global-button w-full mt-10 bg-[#4399CB] text-white font-bold text-xl cursor-pointer" type="submit" disabled={isSubmitting}>
-                                { isSubmitting ? "Loading..." : "S'inscrire" }
+                            <button className="global-button w-full mt-10 bg-[#4399CB] text-white font-bold text-xl cursor-pointer flex items-center justify-center" type="submit" disabled={isPending}>
+                                <span>{ !isPending ? "S'inscrire" : "En cours..." }</span>
+                                { isPending &&  <Spinner height="30" width="40" visible={true} color="white" />}
                             </button>
                         </form>
                     </div>
@@ -100,8 +102,8 @@ function RegisterForm(){
                 </div>
             </div>
         </div>
+    
     )
-
 }
 
 export default RegisterForm;
