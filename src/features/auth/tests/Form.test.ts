@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router';
 
 describe('test du formulaire', () => {
     beforeEach(() => {
-        render(<BrowserRouter><RegisterForm /></BrowserRouter>)
+        // render(<BrowserRouter><RegisterForm /></BrowserRouter>)
 
     })
 })
