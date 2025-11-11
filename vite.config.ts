@@ -12,5 +12,6 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['@testing-library/jest-dom']
-  }
+  },
+  base: process.env.VITE_BASE_PATH || "/hackathon_auth",
 })
