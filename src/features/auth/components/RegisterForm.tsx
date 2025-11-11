@@ -7,6 +7,7 @@ import { Eye, Mail } from 'lucide-react';
 import { useRegister } from '../api/useRegister';
 import { useAuthStore } from "../store/auth.store";
 import Spinner from "../../../components/Spinner";
+import { useNavigate } from "react-router";
 
 function RegisterForm(){
 
@@ -18,12 +19,16 @@ function RegisterForm(){
         resolver: zodResolver(registerSchema),
     });
 
+    const navigate = useNavigate();
+
 
     const onSubmit: SubmitHandler<RegisterUser> = async (formData) => {
         
         mutate(formData, {
             onSuccess: (result) => {
                 login(result)
+
+                navigate("/")
             }
         })
         reset();
