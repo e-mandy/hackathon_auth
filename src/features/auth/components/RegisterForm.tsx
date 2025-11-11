@@ -6,7 +6,7 @@ import { registerSchema } from "../schemas";
 import { Eye, Mail } from 'lucide-react';
 import { useRegister } from '../api/useRegister';
 import { useAuthStore } from "../store/auth.store";
-import Spinner from "../../../utils/components/Spinner";
+import Spinner from "../../../components/Spinner";
 
 function RegisterForm(){
 

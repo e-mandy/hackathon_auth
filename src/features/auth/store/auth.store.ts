@@ -13,7 +13,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
 }));
 
 export const useIsAuthenticated = create(() => ({
-    isRegister: (userStore: RegisterUser) => {
+    isRegister: (userStore: RegisterUser | null) => {
         return (userStore === null) ? false : true;
     }
 }))
