@@ -6,7 +6,7 @@
   "homepage": "https://e-mandy.github.io/hackathon_auth",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite dist",
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
